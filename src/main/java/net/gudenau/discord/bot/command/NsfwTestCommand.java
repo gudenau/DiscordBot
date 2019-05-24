@@ -7,6 +7,7 @@ import net.gudenau.discord.bot.result.Result;
 /**
  * A test of NSFW command filtering.
  * */
+@SuppressWarnings("unused")
 public class NsfwTestCommand implements Command{
     @Override
     public Result execute(Message message, String... arguments){

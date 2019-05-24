@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import net.dv8tion.jda.core.entities.Message;
 import net.gudenau.discord.bot.result.ColoredTextResult;
-import net.gudenau.discord.bot.result.TextResult;
 
 /**
  * Manages commands, execution and registration.
@@ -33,13 +32,14 @@ public class CommandManager{
      * @param command The command instance
      * */
     public static void register(String name, Command command){
-        if(commands.containsKey(name)){
+        var lowerName = name.toLowerCase();
+        if(commands.containsKey(lowerName)){
             System.err.printf(
                 "Command %s already registered",
                 name
             );
         }else{
-            commands.put(name, command);
+            commands.put(lowerName, command);
         }
     }
     
@@ -59,7 +59,7 @@ public class CommandManager{
             split = EMPTY_COMMAND_SPLIT;
         }
         
-        var command = commands.get(split[1]);
+        var command = commands.get(split[1].toLowerCase());
         if(command == null || (command.isNSFW() && !message.getTextChannel().isNSFW())){
             new ColoredTextResult(
                 ColoredTextResult.COLOR_ERROR,

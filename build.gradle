@@ -17,5 +17,6 @@ dependencies {
     
     compile 'net.dv8tion:JDA:3.8.3_463'
     compile 'com.microsoft.azure.cognitiveservices:azure-cognitiveservices-imagesearch:1.0.1'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'com.squareup.okhttp3:okhttp:3.14.2'
 }

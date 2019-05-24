@@ -15,9 +15,9 @@ import net.dv8tion.jda.core.hooks.SubscribeEvent;
 import net.gudenau.discord.bot.util.LambdaTimerTask;
 
 /**
- * A command result that provides an embeded slideshow.
+ * A command result that provides an embedded slideshow.
  * */
-public class SlideshowResult implements Result{
+public class SlideshowResult implements Result, Result.ImageURL{
     /**
      * The timeout value before the slideshow is no longer active.
      * */
@@ -58,6 +58,11 @@ public class SlideshowResult implements Result{
      * The message that contains the slideshow.
      * */
     private Message message;
+    
+    /**
+     * The URL for the current image.
+     * */
+    private String image;
     
     /**
      * Creates a new slideshow.
@@ -177,13 +182,18 @@ public class SlideshowResult implements Result{
         return new EmbedBuilder()
             .setAuthor(author.getEffectiveName(), null, author.getUser().getAvatarUrl())
             .setTitle(title)
-            .setImage(handler.invoke(current))
+            .setImage(image = handler.invoke(current))
             .setFooter(String.format(
                 "Image %d of %d",
                 current + 1,
                 limit
             ), null)
             .build();
+    }
+    
+    @Override
+    public String getImage(){
+        return image;
     }
     
     /**

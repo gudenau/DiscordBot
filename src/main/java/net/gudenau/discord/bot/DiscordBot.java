@@ -7,10 +7,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
 import net.dv8tion.jda.core.hooks.SubscribeEvent;
 import net.gudenau.discord.bot.command.CommandManager;
+import net.gudenau.discord.bot.command.EmojiCommand;
 import net.gudenau.discord.bot.command.HelpCommand;
 import net.gudenau.discord.bot.command.ImageCommand;
 import net.gudenau.discord.bot.command.InviteCommand;
-import net.gudenau.discord.bot.command.NsfwTestCommand;
 import net.gudenau.discord.bot.result.SlideshowResult;
 import net.gudenau.discord.bot.util.Configuration;
 
@@ -27,7 +27,7 @@ public class DiscordBot{
         CommandManager.register("help", new HelpCommand());
         CommandManager.register("invite", new InviteCommand());
         CommandManager.register("image", new ImageCommand());
-        CommandManager.register("nsfw", new NsfwTestCommand());
+        CommandManager.register("emoji", new EmojiCommand());
         
         new JDABuilder(AccountType.BOT)
             .setToken(Configuration.getConfiguration().discordKey)
