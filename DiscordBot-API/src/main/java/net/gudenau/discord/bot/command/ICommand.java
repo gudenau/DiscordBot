@@ -6,7 +6,7 @@ import net.gudenau.discord.bot.result.Result;
 /**
  * The interface to implement commands.
  * */
-public interface Command{
+public interface ICommand{
     /**
      * Executes the command.
      *
@@ -36,7 +36,7 @@ public interface Command{
     /**
      * A way to add a command with a lambda.
      * */
-    public class Lambda implements Command{
+    class Lambda implements ICommand{
         private final String description;
         private final Callback callback;
     

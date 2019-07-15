@@ -7,7 +7,7 @@ import net.gudenau.discord.bot.result.Result;
 /**
  * A command that can be used in a pipeline.
  * */
-public interface PipeableCommand extends Command{
+public interface IPipeableCommand extends ICommand{
     /**
      * Executes the command.
      *

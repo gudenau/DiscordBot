@@ -1,8 +1,9 @@
-package net.gudenau.discord.bot.util;
+package net.gudenau.discord.bot.json;
 
 import com.google.gson.annotations.Expose;
 import java.io.File;
 import java.io.IOException;
+import net.gudenau.discord.bot.util.Json;
 
 /**
  * Global configuration stuff.

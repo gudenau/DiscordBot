@@ -1,6 +1,7 @@
-package net.gudenau.discord.bot.command;
+package net.gudenau.discord.bot.commands;
 
 import net.dv8tion.jda.core.entities.Message;
+import net.gudenau.discord.bot.command.ICommand;
 import net.gudenau.discord.bot.result.ColoredTextResult;
 import net.gudenau.discord.bot.result.Result;
 import net.gudenau.discord.bot.result.UrlImageResult;
@@ -8,7 +9,7 @@ import net.gudenau.discord.bot.result.UrlImageResult;
 /**
  * Gets the image for a custom Discord emoji.
  * */
-public class EmojiCommand implements Command{
+public class EmojiCommand implements ICommand{
     @Override
     public Result execute(Message message, String... arguments){
         var emotes = message.getEmotes();

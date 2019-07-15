@@ -1,2 +1,4 @@
 rootProject.name = 'DiscordBot'
+include 'test-plugin'
+include 'DiscordBot-API'
 

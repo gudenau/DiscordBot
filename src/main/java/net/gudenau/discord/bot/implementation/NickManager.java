@@ -1,4 +1,4 @@
-package net.gudenau.discord.bot;
+package net.gudenau.discord.bot.implementation;
 
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.guild.GuildReadyEvent;

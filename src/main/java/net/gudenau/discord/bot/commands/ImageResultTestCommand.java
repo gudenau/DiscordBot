@@ -1,8 +1,9 @@
-package net.gudenau.discord.bot.command;
+package net.gudenau.discord.bot.commands;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import net.dv8tion.jda.core.entities.Message;
+import net.gudenau.discord.bot.command.ICommand;
 import net.gudenau.discord.bot.result.ImageResult;
 import net.gudenau.discord.bot.result.Result;
 
@@ -10,7 +11,7 @@ import net.gudenau.discord.bot.result.Result;
  * Tests the ImageResult result by posting a test square.
  * */
 @SuppressWarnings("unused")
-public class ImageResultTestCommand implements Command{
+public class ImageResultTestCommand implements ICommand{
     @Override
     public Result execute(Message message, String... arguments){
         var image = new BufferedImage(1024, 1024, BufferedImage.TYPE_4BYTE_ABGR);

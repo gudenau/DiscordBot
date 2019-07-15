@@ -1,6 +1,7 @@
-package net.gudenau.discord.bot.command;
+package net.gudenau.discord.bot.commands;
 
 import net.dv8tion.jda.core.entities.Message;
+import net.gudenau.discord.bot.command.ICommand;
 import net.gudenau.discord.bot.result.Result;
 import net.gudenau.discord.bot.result.TextResult;
 
@@ -9,7 +10,7 @@ import net.gudenau.discord.bot.result.TextResult;
  *
  * Yes all of them.
  * */
-public class InviteCommand implements Command{
+public class InviteCommand implements ICommand{
     @Override
     public Result execute(Message message, String... arguments){
         var jda = message.getJDA();

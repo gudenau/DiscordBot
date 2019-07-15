@@ -1,37 +1,40 @@
-package net.gudenau.discord.bot.command;
+package net.gudenau.discord.bot.implementation;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import net.dv8tion.jda.core.entities.Message;
+import net.gudenau.discord.bot.IPlugin;
+import net.gudenau.discord.bot.command.ICommand;
+import net.gudenau.discord.bot.command.ICommandManager;
 import net.gudenau.discord.bot.result.ColoredTextResult;
 
 /**
  * Manages commands, execution and registration.
  * */
-public class CommandManager{
+public class CommandManager implements ICommandManager{
     /**
      * The map of all commands.
      * */
-    private static final Map<String, Command> commands = new HashMap<>();
+    private final Map<String, Command> commands = new HashMap<>();
     
     /**
      * For an empty ping.
      * */
-    private static final String[] EMPTY_COMMAND_SPLIT = { "", "help" };
+    private final String[] EMPTY_COMMAND_SPLIT = { "", "help" };
     
     /**
      * Our prefix for command execution.
      * */
-    private static String commandPrefix;
+    private String commandPrefix;
     
     /**
-     * Registers a new command.
-     *
-     * @param name The name of the command
-     * @param command The command instance
+     * Currently registering plugin, null is for the core.
      * */
-    public static void register(String name, Command command){
+    private IPlugin currentPlugin;
+    
+    @Override
+    public void register(String name, ICommand command){
         var lowerName = name.toLowerCase();
         if(commands.containsKey(lowerName)){
             System.err.printf(
@@ -39,7 +42,7 @@ public class CommandManager{
                 name
             );
         }else{
-            commands.put(lowerName, command);
+            commands.put(lowerName, new Command(command, currentPlugin));
         }
     }
     
@@ -48,7 +51,7 @@ public class CommandManager{
      *
      * @param message A message
      * */
-    public static void handleMessage(Message message){
+    void handleMessage(Message message){
         var content = message.getContentRaw().trim();
         if(!content.startsWith(commandPrefix)){
             return;
@@ -60,7 +63,7 @@ public class CommandManager{
         }
         
         var command = commands.get(split[1].toLowerCase());
-        if(command == null || (command.isNSFW() && !message.getTextChannel().isNSFW())){
+        if(command == null || (command.command.isNSFW() && !message.getTextChannel().isNSFW())){
             new ColoredTextResult(
                 ColoredTextResult.COLOR_ERROR,
                 "Unknown command \"%s\"",
@@ -75,7 +78,7 @@ public class CommandManager{
             System.arraycopy(split, 2, arguments, 0, arguments.length);
         }
         
-        var result = command.execute(message, arguments);
+        var result = command.command.execute(message, arguments);
         if(result != null){
             result.post(message.getTextChannel(), message.getMember());
         }
@@ -86,7 +89,7 @@ public class CommandManager{
      *
      * @param prefix The new prefix
      * */
-    public static void setPrefix(String prefix){
+    void setPrefix(String prefix){
         commandPrefix = prefix;
     }
     
@@ -95,7 +98,21 @@ public class CommandManager{
      *
      * @return Registered commands
      * */
-    static Map<String, Command> getCommands(){
+    public Map<String, Command> getCommands(){
         return Collections.unmodifiableMap(commands);
+    }
+    
+    void setCurrentPlugin(IPlugin plugin){
+        currentPlugin = plugin;
+    }
+    
+    public static class Command{
+        public final ICommand command;
+        public final IPlugin owner;
+    
+        Command(ICommand command, IPlugin owner){
+            this.command = command;
+            this.owner = owner;
+        }
     }
 }
