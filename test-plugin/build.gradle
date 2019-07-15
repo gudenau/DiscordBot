@@ -19,5 +19,5 @@ dependencies {
         exclude module: 'opus-java'
     }
 
-    implementation project('DiscordBot-API')
+    implementation project('../DiscordBot-API')
 }

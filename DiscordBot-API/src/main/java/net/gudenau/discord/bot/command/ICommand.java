@@ -39,14 +39,25 @@ public interface ICommand{
     class Lambda implements ICommand{
         private final String description;
         private final Callback callback;
+        private final boolean nsfw;
     
         /**
          * @param description The description of the command
-         * @param calllback The lambda to execute
+         * @param callback The lambda to execute
          * */
-        public Lambda(String description, Callback calllback){
+        public Lambda(String description, Callback callback){
+            this(description, false, callback);
+        }
+    
+        /**
+         * @param description The description of the command
+         * @param nsfw Is the command NSFW?
+         * @param callback The lambda to execute
+         * */
+        public Lambda(String description, boolean nsfw, Callback callback){
             this.description = description;
-            this.callback = calllback;
+            this.nsfw = nsfw;
+            this.callback = callback;
         }
     
         @Override
@@ -58,7 +69,12 @@ public interface ICommand{
         public String getDescription(){
             return description;
         }
-        
+    
+        @Override
+        public boolean isNSFW(){
+            return nsfw;
+        }
+    
         @FunctionalInterface
         public interface Callback{
             Result invoke(Message message, String... args);
