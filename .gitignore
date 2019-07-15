@@ -3,3 +3,5 @@
 build/*
 out/*
 config.json
+plugins/*
+pluginDev/*
