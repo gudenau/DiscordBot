@@ -1,0 +1,6 @@
+module net.gudenau.discord.DiscordBot.main {
+    requires JDA;
+    requires azure.cognitiveservices.imagesearch;
+    requires java.desktop;
+    requires gson;
+}

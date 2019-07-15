@@ -12,7 +12,7 @@ public class EmojiCommand implements Command{
     @Override
     public Result execute(Message message, String... arguments){
         var emotes = message.getEmotes();
-        if(emotes.size() != 1 || arguments.length != 1 || !arguments[0].matches("<a?:[a-z_]{2,}:[0-9]+>")){
+        if(emotes.size() != 1 || arguments.length != 1 || !arguments[0].matches("<a?:[a-zA-Z_]{2,}:[0-9]+>")){
             return new ColoredTextResult(
                 ColoredTextResult.COLOR_ERROR,
                 "Usage: %s emoji (custom emoji)",

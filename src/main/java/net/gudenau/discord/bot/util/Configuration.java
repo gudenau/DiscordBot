@@ -13,11 +13,6 @@ public class Configuration{
      * */
     @Expose
     public String discordKey = "Get this from https://discordapp.com/developers/applications/";
-    /**
-     * The key for Bing's image search APi.
-     * */
-    @Expose
-    public String bingImageKey = "Get this from Bing, it's a process....";
     
     private static Configuration configuration;
     

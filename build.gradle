@@ -7,6 +7,20 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 12
 
+compileJava {
+    inputs.property('moduleName', 'net.gudenau.discord.DiscordBot.main')
+    //noinspection GroovyAssignabilityCheck
+    doFirst {
+        def path = classpath.asPath.split(":").findAll {
+            it.endsWith '.jar'
+        }.join(":")
+        options.compilerArgs = [
+                '--module-path', path
+        ]
+        classpath = files()
+    }
+}
+
 repositories {
     mavenCentral()
     jcenter()
@@ -14,9 +28,9 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    
-    compile 'net.dv8tion:JDA:3.8.3_463'
-    compile 'com.microsoft.azure.cognitiveservices:azure-cognitiveservices-imagesearch:1.0.1'
-    compile 'com.google.code.gson:gson:2.8.5'
-    compile 'com.squareup.okhttp3:okhttp:3.14.2'
+
+    implementation 'net.dv8tion:JDA:3.8.3_463'
+    implementation 'com.microsoft.azure.cognitiveservices:azure-cognitiveservices-imagesearch:1.0.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.2'
 }
