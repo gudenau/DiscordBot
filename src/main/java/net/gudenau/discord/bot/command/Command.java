@@ -32,4 +32,36 @@ public interface Command{
     default boolean isNSFW(){
         return false;
     }
+    
+    /**
+     * A way to add a command with a lambda.
+     * */
+    public class Lambda implements Command{
+        private final String description;
+        private final Callback callback;
+    
+        /**
+         * @param description The description of the command
+         * @param calllback The lambda to execute
+         * */
+        public Lambda(String description, Callback calllback){
+            this.description = description;
+            this.callback = calllback;
+        }
+    
+        @Override
+        public Result execute(Message message, String... arguments){
+            return callback.invoke(message, arguments);
+        }
+    
+        @Override
+        public String getDescription(){
+            return description;
+        }
+        
+        @FunctionalInterface
+        public interface Callback{
+            Result invoke(Message message, String... args);
+        }
+    }
 }
