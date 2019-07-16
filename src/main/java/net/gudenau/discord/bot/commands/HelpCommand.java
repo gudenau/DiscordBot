@@ -20,13 +20,11 @@ public class HelpCommand implements ICommand{
     public Result execute(Message message, String... arguments){
         StringBuilder stringBuilder = new StringBuilder();
         
-        boolean nsfw = message.getTextChannel().isNSFW();
-        
         for(var entry : commandManager.getCommands().entrySet()){
             var wrapper = entry.getValue();
             var command = wrapper.command;
             
-            if(!nsfw && command.isNSFW()){
+            if(command.shouldHide(message.getTextChannel(), message.getAuthor())){
                 continue;
             }
             

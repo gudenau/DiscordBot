@@ -63,7 +63,7 @@ public class CommandManager implements ICommandManager{
         }
         
         var command = commands.get(split[1].toLowerCase());
-        if(command == null || (command.command.isNSFW() && !message.getTextChannel().isNSFW())){
+        if(command == null || command.command.shouldHide(message.getTextChannel(), message.getAuthor())){
             new ColoredTextResult(
                 ColoredTextResult.COLOR_ERROR,
                 "Unknown command \"%s\"",

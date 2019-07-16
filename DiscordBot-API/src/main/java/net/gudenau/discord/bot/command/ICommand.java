@@ -1,6 +1,8 @@
 package net.gudenau.discord.bot.command;
 
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.User;
 import net.gudenau.discord.bot.result.Result;
 
 /**
@@ -31,6 +33,15 @@ public interface ICommand{
      * */
     default boolean isNSFW(){
         return false;
+    }
+    
+    /**
+     * Checks if this command should be hidden from users.
+     *
+     * @return Should this command be hidden?
+     * */
+    default boolean shouldHide(TextChannel channel, User user){
+        return isNSFW() && !channel.isNSFW();
     }
     
     /**
