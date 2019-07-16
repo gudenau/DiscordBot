@@ -31,10 +31,10 @@ public class DiscordBot{
         
         commandManager = new CommandManager();
         
-        commandManager.register("help", new HelpCommand(commandManager));
-        commandManager.register("invite", new InviteCommand());
+        commandManager.register(new HelpCommand(commandManager));
+        commandManager.register(new InviteCommand());
         var pluginCommand = new PluginCommand();
-        commandManager.register("plugins", pluginCommand);
+        commandManager.register(pluginCommand);
         
         var pluginLayer = PluginLoader.loadPlugins();
         
