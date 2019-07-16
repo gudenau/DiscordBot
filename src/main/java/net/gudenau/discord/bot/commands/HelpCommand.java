@@ -49,7 +49,7 @@ public class HelpCommand implements ICommand{
         
         stringBuilder.setLength(stringBuilder.length() - 1);
         
-        return new TextResult(stringBuilder.toString());
+        return new TextResult(stringBuilder);
     }
     
     @Override

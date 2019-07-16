@@ -2,14 +2,11 @@ package net.gudenau.discord.bot.plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.module.Configuration;
 import java.lang.module.ModuleFinder;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 import java.util.jar.JarFile;
-import net.gudenau.discord.bot.IPlugin;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 

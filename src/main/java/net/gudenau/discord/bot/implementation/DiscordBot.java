@@ -1,5 +1,7 @@
 package net.gudenau.discord.bot.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ServiceLoader;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDABuilder;
@@ -19,6 +21,8 @@ import net.gudenau.discord.bot.json.Configuration;
 public class DiscordBot{
     private static CommandManager commandManager;
     
+    private static List<PluginHolder> loadedPlugins = new ArrayList<>();
+    
     /**
      * Handles JDA init, configuration and command registration.
      * */
@@ -29,7 +33,8 @@ public class DiscordBot{
         
         commandManager.register("help", new HelpCommand(commandManager));
         commandManager.register("invite", new InviteCommand());
-        commandManager.register("emoji", new EmojiCommand());
+        var pluginCommand = new PluginCommand();
+        commandManager.register("plugins", pluginCommand);
         
         var pluginLayer = PluginLoader.loadPlugins();
         
@@ -37,14 +42,28 @@ public class DiscordBot{
             var plugins = ServiceLoader.load(pluginLayer, IPlugin.class);
             plugins.forEach((plugin)->{
                 commandManager.setCurrentPlugin(plugin);
-                if(!plugin.register(commandManager)){
+                var status = PluginHolder.Status.LOADED;
+                try{
+                    if(!plugin.register(commandManager)){
+                        System.err.printf(
+                            "Plugin %s failed to register\n",
+                            plugin.getName()
+                        );
+                        status = PluginHolder.Status.ERRORED;
+                    }
+                }catch(Throwable t){
                     System.err.printf(
                         "Plugin %s failed to register\n",
                         plugin.getName()
                     );
+                    t.printStackTrace();
+                    status = PluginHolder.Status.CRASHED;
                 }
+                loadedPlugins.add(new PluginHolder(plugin, status));
             });
         }
+        
+        pluginCommand.setPlugins(loadedPlugins);
         
         new JDABuilder(AccountType.BOT)
             .setToken(Configuration.getConfiguration().discordKey)

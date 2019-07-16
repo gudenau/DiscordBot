@@ -19,5 +19,5 @@ dependencies {
         exclude module: 'opus-java'
     }
 
-    implementation project('../DiscordBot-API')
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

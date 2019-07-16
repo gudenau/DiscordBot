@@ -34,6 +34,15 @@ public class TextResult implements Result{
         this.message = message;
     }
     
+    /**
+     * Creates a new text result.
+     *
+     * @param message The message to send
+     * */
+    public TextResult(CharSequence message){
+        this(message.toString());
+    }
+    
     @Override
     public void post(TextChannel textChannel, Member author){
         textChannel.sendMessage(new MessageBuilder()
