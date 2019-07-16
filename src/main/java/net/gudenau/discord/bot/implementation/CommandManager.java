@@ -34,12 +34,12 @@ public class CommandManager implements ICommandManager{
     private IPlugin currentPlugin;
     
     @Override
-    public void register(String name, ICommand command){
-        var lowerName = name.toLowerCase();
+    public void register(ICommand command){
+        var lowerName = command.getName().toLowerCase();
         if(commands.containsKey(lowerName)){
             System.err.printf(
                 "Command %s already registered",
-                name
+                command.getName()
             );
         }else{
             commands.put(lowerName, new Command(command, currentPlugin));

@@ -45,9 +45,17 @@ public interface ICommand{
     }
     
     /**
+     * Gets the name of this command.
+     *
+     * @return The name of the plugin
+     * */
+    String getName();
+    
+    /**
      * A way to add a command with a lambda.
      * */
     class Lambda implements ICommand{
+        private final String name;
         private final String description;
         private final Callback callback;
         private final boolean nsfw;
@@ -56,8 +64,8 @@ public interface ICommand{
          * @param description The description of the command
          * @param callback The lambda to execute
          * */
-        public Lambda(String description, Callback callback){
-            this(description, false, callback);
+        public Lambda(String name, String description, Callback callback){
+            this(name, description, false, callback);
         }
     
         /**
@@ -65,7 +73,8 @@ public interface ICommand{
          * @param nsfw Is the command NSFW?
          * @param callback The lambda to execute
          * */
-        public Lambda(String description, boolean nsfw, Callback callback){
+        public Lambda(String name, String description, boolean nsfw, Callback callback){
+            this.name = name;
             this.description = description;
             this.nsfw = nsfw;
             this.callback = callback;
@@ -84,6 +93,11 @@ public interface ICommand{
         @Override
         public boolean isNSFW(){
             return nsfw;
+        }
+    
+        @Override
+        public String getName(){
+            return name;
         }
     
         @FunctionalInterface

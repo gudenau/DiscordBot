@@ -56,4 +56,9 @@ public class HelpCommand implements ICommand{
     public String getDescription(){
         return "Lists commands.";
     }
+    
+    @Override
+    public String getName(){
+        return "help";
+    }
 }

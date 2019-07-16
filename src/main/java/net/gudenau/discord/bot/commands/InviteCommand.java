@@ -25,4 +25,9 @@ public class InviteCommand implements ICommand{
     public String getDescription(){
         return "Generates an invite for this bot.";
     }
+    
+    @Override
+    public String getName(){
+        return "invite";
+    }
 }

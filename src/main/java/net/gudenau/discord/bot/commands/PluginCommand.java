@@ -82,6 +82,11 @@ public class PluginCommand implements ICommand{
         return "Lists plugins.";
     }
     
+    @Override
+    public String getName(){
+        return "plugins";
+    }
+    
     public void setPlugins(List<PluginHolder> plugins){
         this.plugins = plugins;
     }
